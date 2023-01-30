@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asteroids</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin: 0 auto;
+            width: fit-content;
+        }
+        input[type="date"] {
+            width: 300px;
+            height: 30px;  
+            margin: 10px;
+        }
+        input[type="submit"] {
+            background-color: blue;
+            color: white;
+            border-radius: 10px;
+            width: 200px;
+            height: 40px; 
+            margin-bottom: 20px;
+            margin-left: 80px;
+            font-weight: bold;
+            
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Asteroids</h1>
+    <form method="GET" action="{% url 'home' %}">
+        <label for="start_date">Start date:</label>
+        <input type="date" id="start_date" name="start_date" class="input-field">
+        <br>
+        <label for="end_date">End date:</label>
+        <input type="date" id="end_date" name="end_date" class="input-field">
+        <br><br>
+        <input type="submit" value="Submit" class="submit-button">
+    </form>
+    
+    {% if asteroids %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Estimated Diameter (Km)</th>
+                <th>Distance (LD)</th>
+                <th>Date</th>
+                <th>Velocity (km/s)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for date, asteroid_list in asteroids.near_earth_objects.items %}
+            {% if asteroid_list %}
+            {% for asteroid in asteroid_list %}
+                <tr>
+                    <td><a href="{% url 'asteroid_detail' asteroid.id %}">{{ asteroid.name }}</a></td>
+                    <td>{{ asteroid.estimated_diameter.kilometers.estimated_diameter_min }} - {{ asteroid.estimated_diameter.kilometers.estimated_diameter_max }}</td>
+                    <td>{{ asteroid.close_approach_data.0.miss_distance.lunar }}</td>
+                    {% if asteroid.close_approach_data %}
+                    {% for approach in asteroid.close_approach_data %}
+                    <td>{{ approach.close_approach_date }}</td>
+                    <td>{{ asteroid.close_approach_data.0.relative_velocity.kilometers_per_second }}</td>
+                    {% endfor %}
+                    {% else %}
+                       <td> N/A </td>
+                       <td> N/A </td>
+                       <td> N/A </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<style>
+    table {
+       
+        border-collapse: collapse;
+        width: 70%;
+        margin: 0 auto;
+      
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+            text-align: left;
+            padding: 8px;
+    }
+    th {
+        background-color: #dddddd;
+    }
+    a, h1, h3 {
+            text-align: center;
+        }
+</style>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asteroid Details</title>
+</head>
+<body>
+    <h1>Asteroid Details</h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>Name:</th>
+                <td>{{ asteroid.name }}</td>
+            </tr>
+            <tr>
+                <th>Nasa JPL URL:</th>
+                <td>{{ asteroid.nasa_jpl_url }}</td>
+            </tr>
+            <tr>
+                <th>Absolute Magnitude:</th>
+                <td>{{ asteroid.absolute_magnitude_h }}</td>
+            </tr>
+            <tr>
+                <th>Estimated Diameter:</th>
+                <td>
+                    <ul>
+                        <li>Minimum: {{ asteroid.estimated_diameter.meters.estimated_diameter_min }} meters</li>
+                        <li>Maximum: {{ asteroid.estimated_diameter.meters.estimated_diameter_max }} meters</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>5 most recent close approach dates and distances</h3>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <h3>5 most recent close approach dates and distances</h3>
+                </th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>Distance (LD)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for approach in asteroid.close_approach_data|slice:":5" %}
+                <tr>
+                    <td>{{ approach.close_approach_date }}</td>
+                    <td>{{ approach.miss_distance.lunar }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
