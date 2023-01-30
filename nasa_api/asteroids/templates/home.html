@@ -2,48 +2,59 @@
 <html>
 <head>
     <title>Asteroids</title>
+    
     <style>
-        h1 {
-            text-align: center;
-        }
-        form {
-            text-align: center;
-            margin: 0 auto;
-            width: fit-content;
-        }
-        input[type="date"] {
-            width: 300px;
-            height: 30px;  
-            margin: 10px;
-        }
-        input[type="submit"] {
-            background-color: blue;
-            color: white;
-            border-radius: 10px;
-            width: 200px;
-            height: 40px; 
-            margin-bottom: 20px;
-            margin-left: 80px;
-            font-weight: bold;
-            
-        }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid black;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #dddddd;
-        }
+body {
+    background-color: blanchedalmond;
+}
+h1 {
+    text-align: center;
+    color: white;
+  }
+  form {
+    text-align: center;
+    margin: 0 auto;
+    width: fit-content;
+  }
+  input[type="date"] {
+    width: 300px;
+    height: 30px;  
+    margin: 10px;
+  }
+  input[type="submit"] {
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    width: 200px;
+    height: 40px; 
+    margin-bottom: 20px;
+    margin-left: 80px;
+    font-weight: bold;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+  }
+  th {
+    background-color: #dddddd;
+  }
+  p {
+    text-align: center;
+  }
+  
     </style>
 </head>
 <body>
-    <h1>Asteroids</h1>
+    
+    <p> Please enter a start and end date to show a list of celestial bodies that pass near the earth between these dates.</p>
+    <p>Note : If anything is displayed, you need to change dates.</p>
+    <p>You can try these dates : 07/09/2015 and 08/09/2015.</p>
     <form method="GET" action="{% url 'home' %}">
         <label for="start_date">Start date:</label>
         <input type="date" id="start_date" name="start_date" class="input-field">
@@ -51,7 +62,7 @@
         <label for="end_date">End date:</label>
         <input type="date" id="end_date" name="end_date" class="input-field">
         <br><br>
-        <input type="submit" value="Submit" class="submit-button">
+        <input type="submit" value="See Asteroids" class="submit-button">
     </form>
     
     {% if asteroids %}
